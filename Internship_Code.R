@@ -1,7 +1,3 @@
-getwd()
-setwd("/Users/lucas/Desktop/RSMAS_Internship/Data") # set working directory where data is located 
-
-############## (1) Establishing Seasonality & Adjusting Data ##############
 # First we have to load libraries we'll need for this analysis and import our data; if you dont have these download them! 
 library(tidyverse)
 library(mosaic)
@@ -12,6 +8,7 @@ library(vegan)
 library(rstatix)
 library(coin)
 library(NSM3)
+############## (1) Establishing Seasonality & Adjusting Data ##############
 
 x1 = read.csv("Group_1.csv") # x1 is group 1 data
 x2 = read.csv("Group_2.csv") # x2 is group 2 data 
