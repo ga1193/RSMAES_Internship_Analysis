@@ -64,17 +64,13 @@ x2$ad.Water.Temperature = ad.Water.Temperature2
 # to wrangle our data and calculate monhtly average water temperatures for groups 1 and 2
 
 ############## (2) Data Wrangling ##################
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-} #function that will give us the mode (most common value); R doesnt come with this function for whatever reason, will be needed soon
 
 # First thing we wanna do is convert our holding tank data into a numeric value we can use
 x1$Tank = gsub("MAT", "", as.character(x1$Tank)) # Removes characters from tank column so we can work w numbers 
 x1$Tank = as.numeric(x1$Tank) # convert from character to numeric values 
 
 #Now we can make the matrix and start adding stuff to it 
-matrix_dataG1 = matrix(nrow=54, ncol =5) # need 54 rows x 4 columns (year, month, avg water temp, # spawns)
+matrix_dataG1 = matrix(nrow=54, ncol =4) # need 54 rows x 4 columns (year, month, avg water temp, # spawns)
 # Note: we are only including data up to June 2022, so we will only require 54 rows, change this value as needed 
 for (i in 1:5) # i represent number of years we have of data; 2018-2022 = 5 (adjust as needed)
 {
@@ -87,7 +83,6 @@ for (i in 1:5) # i represent number of years we have of data; 2018-2022 = 5 (adj
     #matrix_dataG1[12*i - 12 + j, 3] = mean(mon$Water.Temperature, na.rm = TRUE) # avg monthly water temp to matrix
     matrix_dataG1[12*i - 12 + j, 3] = mean(mon$ad.Water.Temperature$x) # avg monthly water temp to matrix using seasonally adjusted data
     matrix_dataG1[12*i - 12 + j, 4] = sum(mon$Spawn, na.rm = TRUE) # monthly total spawns to matrix
-    matrix_dataG1[12*i - 12 + j, 5] = getmode(mon$Tank)
     # na.rm will ignore the NA values so we dont get an error
     # will get an out of bounds error bc we dont have all the data for 2022
 
@@ -98,7 +93,7 @@ for (i in 1:5) # i represent number of years we have of data; 2018-2022 = 5 (adj
 x2$Tank = gsub("MAT", "", as.character(x2$Tank)) # Removes characters from tank column so we can work w numbers 
 x2$Tank = as.numeric(x2$Tank) # convert from character to numeric values 
 
-matrix_dataG2 = matrix(nrow=54, ncol =5) # need 54 rows x 4 columns (month, year, avg water temp, # spawns)
+matrix_dataG2 = matrix(nrow=54, ncol =4) # need 54 rows x 4 columns (month, year, avg water temp, # spawns)
 for (i in 1:5) # i represent number of years we have of data; 2018-2021 = 5 (change as needed)
 {
   yr = x2[x2$Year == 2017 + i, ] # subset by year, iterating through i
@@ -110,7 +105,6 @@ for (i in 1:5) # i represent number of years we have of data; 2018-2021 = 5 (cha
     #matrix_dataG2[12*i - 12 + j, 3] = mean(mon$Water.Temperature, na.rm = TRUE) # avg monthly water temp to matrix (not used)
     matrix_dataG2[12*i - 12 + j, 3] = mean(mon$ad.Water.Temperature$x) # avg monthly water temp to matrix using seasonally adjusted data
     matrix_dataG2[12*i - 12 + j, 4] = sum(mon$Spawn, na.rm = TRUE) # monthly total spawns to matrix
-    matrix_dataG2[12*i - 12 + j, 5] = getmode(mon$Tank)
     # na.rm will ignore the NA values
     # will get an out of bounds error bc we dont have all the data for 2022
   }
@@ -148,13 +142,15 @@ plot(matrixG2_ts_temp, xlab = "Time", ylab = "Average Water Temperature (C)", ma
 # Also looks quite choppy
 
 # Let's first visually compare the two groups by putting the monthly avg time series' on the same plot
-plot(matrixG1_ts_temp, col = 2, ylim = c(20,31), 
+plot(matrixG1_ts_temp, col = gray(0), ylim = c(20,31), 
      xlab = "Time", ylab = "Avg. Water Temperature (C)")
-lines(matrixG2_ts_temp, col = 3)
-lines(abline(h = 26, col = "gray", lty = 4))
-lines(abline(h = 28, col = "gray", lty = 4))
-legend("bottomright", title = "Cohort", c("Group 1", "Group 2"), lty = 1, col = 2:3, cex = .85, box.lty = 0) # NEED TO FIX LEGEND PLACEMENT
+lines(matrixG2_ts_temp, col = gray(.75))
+lines(abline(h = 26, col = "black", lty = 4))
+lines(abline(h = 28, col = "black", lty = 4))
+legend("bottomright", inset=c(.03, .03), c("Group 1","Group 2"), box.lty = 1, cex = .85, title="Cohort")
+#Need to fix legend to show lines
 # We can easily observe that group 2 has a fairly consistent change in water temperature, group 1 is definitely more choppy
+
 
 ggplot(as.data.frame(matrixG1_ts_temp))
 
