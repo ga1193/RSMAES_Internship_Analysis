@@ -142,17 +142,13 @@ plot(matrixG2_ts_temp, xlab = "Time", ylab = "Average Water Temperature (C)", ma
 # Also looks quite choppy
 
 # Let's first visually compare the two groups by putting the monthly avg time series' on the same plot
-plot(matrixG1_ts_temp, col = gray(0), ylim = c(20,31), 
+plot(matrixG1_ts_temp, col = "black", ylim = c(20,31), 
      xlab = "Time", ylab = "Avg. Water Temperature (C)")
-lines(matrixG2_ts_temp, col = gray(.75))
+lines(matrixG2_ts_temp, col = "gray")
 lines(abline(h = 26, col = "black", lty = 4))
 lines(abline(h = 28, col = "black", lty = 4))
-legend("bottomright", inset=c(.03, .03), c("Group 1","Group 2"), box.lty = 1, cex = .85, title="Cohort")
-#Need to fix legend to show lines
+legend("bottomright", inset=c(.03, .03), c("Group 1","Group 2"), lty = 1, col = c("black","gray"), cex = 0.85, title="Cohort")
 # We can easily observe that group 2 has a fairly consistent change in water temperature, group 1 is definitely more choppy
-
-
-ggplot(as.data.frame(matrixG1_ts_temp))
 
 water_temp = matrix(nrow = 108, ncol = 2) # matrix for box plot
 water_temp[1:54,1] = matrix_dataG1[,3] # copy over year from earlier matrix
@@ -172,10 +168,10 @@ MWU_water = group_by(water_temp_df, V2) %>%
   )
 print(MWU_water)
 
-water_temp_df$V2 = as.factor(water_temp_df$V2) # Changing V2 to a factor so its counter as a categorical var (instead of integer)
+water_temp_df$V2 = as.factor(water_temp_df$V2)# Changing V2 to a factor so its counter as a categorical var (instead of integer)
 box_water_temp = ggplot(data = water_temp_df, aes(x= V2, y= V1, group = V2, fill = V2), auto.key = T) +
-  geom_boxplot() + labs(x = "Group", y = "Water Temperature (C)") + labs(fill="Cohort") +
-  theme(plot.title = element_text(hjust = 0.5))
+  geom_boxplot() + labs(x = "Group", y = "Water Temperature (C)") + labs(fill="Group") +
+  theme(plot.title = element_text(hjust = 0.5)) + theme_classic() + scale_fill_manual(values = c(gray(0.45),gray(0.85)))
 print(box_water_temp)
 # visualizes the data as box plot
 
@@ -199,10 +195,10 @@ matrixG2_ts_spawn = ts(matrix_dataG2[,4], start = c(2018, as.numeric(format(inds
 plot(matrixG2_ts_spawn, xlab = "Time", ylab = "Average Water Temperature (C)", main = "Group 2 Avg. Monthly Spawning Frequency Over Time")
 # Also looks quite choppy
 
-plot(matrixG1_ts_spawn, col = 2, ylim = c(0,21),
+plot(matrixG1_ts_spawn, col = "black", ylim = c(0,21),
      xlab = "Time (Monthly)", ylab = "Spawn Frequency")
-lines(matrixG2_ts_spawn, col = 3)
-legend("topright", title = "Cohort", c("Group 1", "Group 2"), lty = 1, col = 2:3, cex = .85, box.lty = 0) # NEED TO FIX LEGEND PLACEMENT
+lines(matrixG2_ts_spawn, col = "gray")
+legend("topright", inset=c(.03, .03), title = "Cohort", c("Group 1", "Group 2"), lty = 1, col = c("black","gray"), cex = .85) # NEED TO FIX LEGEND PLACEMENT
 
 spawn = matrix(nrow = 108, ncol = 2) # matrix we will use for the analysis
 spawn[1:54,1] = matrix_dataG1[,4] # copy over year from earlier matrix
@@ -224,10 +220,9 @@ print(MWU_spawns)
 
 spawn_df$V2 = as.factor(spawn_df$V2) # Changing V2 to a factor so its counter as a categorical var (instead of integer)
 box_spawn = ggplot(data = spawn_df, aes(x= V2, y= V1, group = V2, fill = V2), auto.key = T) +
-  geom_boxplot() + labs(x = "Group", y = "Spawn Frequency") + labs(fill="Cohort") +
-  theme(plot.title = element_text(hjust = 0.5))
+  geom_boxplot() + labs(x = "Group", y = "Spawn Frequency") + labs(fill="Group") +
+  theme(plot.title = element_text(hjust = 0.5)) + theme_classic() + scale_fill_manual(values = c(gray(0.45),gray(0.85)))
 print(box_spawn)
-
 
 wilcox.test(V1~V2, data = spawn_df)
 spawn_df %>% wilcox_effsize(V1~V2) #calculates effect size of the wilcox test
