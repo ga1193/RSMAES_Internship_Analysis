@@ -313,9 +313,9 @@ water_tankG1 = group_by(tank_totalsG1, V1) %>%
 print(water_tankG1)
 
 ggplot(tank_totalsG1, mapping = aes(x = V1, y = V2, fill = V1), auto.key = T) + geom_boxplot() +
-  labs(x = "Holding Tank", y = "Water Temperature(C)") + labs(fill="Tank") + ggtitle("Daily Water Temperature Across Holding Tanks (Group 1)") +
-  theme(plot.title = element_text(hjust = 0.5))
-ggplot(tank_totalsG1, mapping=aes(x=V1, y = V2, color = V1))+ geom_point() # x= water temp, y = spawn freq, color = holding tank GROUP 2  
+  labs(x = "Holding Tank", y = "Water Temperature(C)") + labs(fill="Tank") +
+  theme(plot.title = element_text(hjust = 0.5)) + theme_classic() + scale_fill_manual(values = c(gray(0.45),gray(0.65),gray(0.85)))
+#ggplot(tank_totalsG1, mapping=aes(x=V1, y = V2, color = V1))+ geom_point() # x= water temp, y = spawn freq, color = holding tank GROUP 2  
 kruskal.test(V2~V1, data = tank_totalsG1) # Non-parametric equivalent of ANOVA
 # HO : There is no statistically significant difference between water temperature in holding tanks for Group 1
 # HA : There is A statistically significant difference between water temperature in holding tanks for Group 1 
@@ -358,9 +358,9 @@ water_tankG2 = group_by(tank_totalsG2, V1) %>%
 print(water_tankG2)
 
 ggplot(tank_totalsG2, mapping = aes(x = V1, y = V2, fill = V1), auto.key = T) + geom_boxplot() +
-  labs(x = "Holding Tank", y = "Water Temperature(C)") + labs(fill="Tank") + ggtitle("Daily Water Temperature Across Holding Tanks (Group 2)") +
-  theme(plot.title = element_text(hjust = 0.5))
-ggplot(tank_totalsG2, mapping=aes(x=V1, y = V2, color = V1))+ geom_point() # x= water temp, y = spawn freq, color = holding tank 
+  labs(x = "Holding Tank", y = "Water Temperature(C)") + labs(fill="Tank") +
+  theme(plot.title = element_text(hjust = 0.5)) + scale_fill_manual(values = c(gray(0.35),gray(0.45),gray(0.65),gray(0.80)))
+#ggplot(tank_totalsG2, mapping=aes(x=V1, y = V2, color = V1))+ geom_point() # x= water temp, y = spawn freq, color = holding tank 
 
 kruskal.test(V2~V1, data = tank_totalsG2) # Non-parametric equivalent of ANOVA
 # HO : There is no statistically significant difference between daily water temperature in holding tanks for Group 2
