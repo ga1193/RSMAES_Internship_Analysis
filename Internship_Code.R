@@ -383,8 +383,6 @@ print(pw_testG2)
 
 # Tests show that a statistically significant difference exists between daily water temperatures in holding tanks for group 2.
 
-############## (5) FUTURE ACTIVITY : Establishing a Time-Series Regression Model to predict future Spawning Events  ##################
-# MAYBE INSTEAD OF DOING THIS ARIMA, TRY TO LOOK AT LOCATION (TANK) MOVEMENT OVER TIME AND/OR CORRELATION BETWEEN WATER TEMP/TANK/SPAWN FREQUENCY
 
 
 
