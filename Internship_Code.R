@@ -246,8 +246,8 @@ water_temp_df$Spawns[1:54] = matrix_dataG1[,4] # adds monthly spawns for group 1
 water_temp_df$Spawns[55:108] = matrix_dataG2[,4] # adds monthly spawns for group 2
 
 ggplot(water_temp_df[1:54,], aes(x = V1, y = Spawns)) + geom_point() + xlab("Water Temperature (C)") + ylab("Spawn Frequency") +
-  ggtitle("Monthly Average Water Temperature vs. Spawning Frequency (Group 1)") + geom_smooth(method = "lm",se = T, color = 'black') +
-  theme(plot.title = element_text(hjust = 0.5))
+  geom_smooth(method = "lm",se = T, color = 'black') +
+  theme(plot.title = element_text(hjust = 0.5)) + theme_classic()
 # Plots avg. monthly water temp (Group) on the x axis and Spawn Frequency on the right + linear model
 # There appears to be a positive correlation (passes linearity check)
 
@@ -263,8 +263,8 @@ kendall.ci(water_temp_df[1:54,1], water_temp_df[1:54,3], alpha = 0.05, type = "t
 
 # Now we do the same for Group 2
 ggplot(water_temp_df[55:108,], aes(x = V1, y = Spawns)) + geom_point() + xlab("Water Temperature (C)") + ylab("Spawn Frequency") +
-  ggtitle("Monthly Average Water Temperature vs. Spawning Frequency (Group 2)") + geom_smooth(method = "lm",se = T, color = 'black') +
-  theme(plot.title = element_text(hjust = 0.5))
+  geom_smooth(method = "lm",se = T, color = 'black') +
+  theme(plot.title = element_text(hjust = 0.5)) + theme_classic()
 # Plots avg. monthly water temp (Group 2) on the x axis and Spawn Frequency on the right + linear model
 # There doesnt seem to be any sort of association
 
@@ -359,7 +359,7 @@ print(water_tankG2)
 
 ggplot(tank_totalsG2, mapping = aes(x = V1, y = V2, fill = V1), auto.key = T) + geom_boxplot() +
   labs(x = "Holding Tank", y = "Water Temperature(C)") + labs(fill="Tank") +
-  theme(plot.title = element_text(hjust = 0.5)) + scale_fill_manual(values = c(gray(0.35),gray(0.45),gray(0.65),gray(0.80)))
+  theme(plot.title = element_text(hjust = 0.5)) + theme_classic() + scale_fill_manual(values = c(gray(0.35),gray(0.45),gray(0.65),gray(0.80)))
 #ggplot(tank_totalsG2, mapping=aes(x=V1, y = V2, color = V1))+ geom_point() # x= water temp, y = spawn freq, color = holding tank 
 
 kruskal.test(V2~V1, data = tank_totalsG2) # Non-parametric equivalent of ANOVA
