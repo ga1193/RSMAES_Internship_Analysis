@@ -6,7 +6,6 @@ Abstract of a master’s degree internship report at the University of Miami, Ro
 Marine, Atmospheric, and Earth Science.
 
 Supervised by: Dr. Daniel Benetti & Carlos Tudela
-Number of pages in text: 20
 
 Broodstock management is a crucial component of any fish hatchery operation. This study
 evaluated the University of Miami Experimental Hatchery (UMEH)’s adherence to its Cobia
@@ -24,3 +23,6 @@ spawning frequency in Group 1, while a significant correlation does not exist be
 temperature and spawning frequency in Group 2. This analysis shows that further research is
 needed to develop a better understanding of the dynamics between water quality parameters and
 spawning frequency to develop regressional models that can predict future spawning events.
+
+
+Update 7/12: Published in the UM Graduate Student Library database - https://scholarship.miami.edu/esploro/outputs/991031808511202976
